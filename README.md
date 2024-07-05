@@ -1,0 +1,1 @@
+In this project we will creating a RAG application
