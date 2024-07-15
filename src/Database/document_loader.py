@@ -1,7 +1,13 @@
 from langchain_community.document_loaders import PyPDFLoader
 from src.utils import get_files_path
 from dataclasses import dataclass
+from pydantic import BaseModel, Field
 
+class Page(BaseModel):
+    page_content: str
+    metadata: str
+    embedding: list = Field(default_factory=list)
+    
 class DocumentLoader():
     def __init__(self):
         self.books = get_files_path('Books')
@@ -20,8 +26,10 @@ class DocumentLoader():
         for book in books:
             loader = PyPDFLoader(book)
             chapters = loader.load()
+            page_list = []
             for chapter in chapters:
-                chapter.metadata = self.combine_metadata(chapter.metadata)
+                combined_metadata = self.combine_metadata(chapter.metadata)
+                page_list.append(Page(page_content = chapter.page_content, metadata=combined_metadata))
             document_dict[book] = chapters
         return document_dict
     
@@ -36,11 +44,13 @@ if __name__ == '__main__':
     print(all_docs.keys())
     
     print(len(all_docs[next(iter(all_docs.keys()))]))
+    j=0
+    for i in all_docs[next(iter(all_docs.keys()))]:
+        print(i.page_content)
+    #print(all_docs[next(iter(
+    #    all_docs.keys()))][0].page_content)
     
-    print(all_docs[next(iter(
-        all_docs.keys()))][0].page_content)
+    #print(all_docs[next(iter(
+    #    all_docs.keys()))][0].metadata)
     
-    print(all_docs[next(iter(
-        all_docs.keys()))][0].metadata)
-    
-    print(all_docs[next(iter(all_docs.keys()))][0:2])
+    #print(all_docs[next(iter(all_docs.keys()))][0:2])
