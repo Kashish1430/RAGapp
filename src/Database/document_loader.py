@@ -30,7 +30,7 @@ class DocumentLoader():
             for chapter in chapters:
                 combined_metadata = self.combine_metadata(chapter.metadata)
                 page_list.append(Page(page_content = chapter.page_content, metadata=combined_metadata))
-            document_dict[book] = chapters
+            document_dict[book] = page_list
         return document_dict
     
 if __name__ == '__main__':
@@ -47,10 +47,10 @@ if __name__ == '__main__':
     j=0
     for i in all_docs[next(iter(all_docs.keys()))]:
         print(i.page_content)
-    #print(all_docs[next(iter(
-    #    all_docs.keys()))][0].page_content)
+    print(all_docs[next(iter(
+        all_docs.keys()))][0].page_content)
     
-    #print(all_docs[next(iter(
-    #    all_docs.keys()))][0].metadata)
+    print(all_docs[next(iter(
+        all_docs.keys()))][0].metadata)
     
-    #print(all_docs[next(iter(all_docs.keys()))][0:2])
+    print(all_docs[next(iter(all_docs.keys()))][0:2])
