@@ -1,5 +1,5 @@
 from langchain_community.document_loaders import PyPDFLoader
-from src.utils import get_files_path
+from src.utils import get_files_path, create_valid_vector_id
 from dataclasses import dataclass
 from pydantic import BaseModel, Field
 
@@ -19,7 +19,7 @@ class DocumentLoader():
         return PyPDFLoader(doc).load()
     
     def combine_metadata(self, metadata):
-        return f"{metadata['source']} - Page {metadata['page']}"
+        return create_valid_vector_id(f"{metadata['source']} - Page {metadata['page']}")
     
     def load_all_docs(self, books):
         document_dict = {}
@@ -44,13 +44,20 @@ if __name__ == '__main__':
     print(all_docs.keys())
     
     print(len(all_docs[next(iter(all_docs.keys()))]))
-    j=0
-    for i in all_docs[next(iter(all_docs.keys()))]:
-        print(i.page_content)
+
     print(all_docs[next(iter(
         all_docs.keys()))][0].page_content)
     
     print(all_docs[next(iter(
         all_docs.keys()))][0].metadata)
     
-    print(all_docs[next(iter(all_docs.keys()))][0:2])
+    #print(all_docs[next(iter(all_docs.keys()))][500:502])
+    print('-------------')
+    j = 0
+    for docs, pages in all_docs.items():
+        print('-----------')
+        for page in pages:
+            print(page.embedding)
+            break
+        
+        
