@@ -51,13 +51,4 @@ if __name__ == '__main__':
     print(all_docs[next(iter(
         all_docs.keys()))][0].metadata)
     
-    #print(all_docs[next(iter(all_docs.keys()))][500:502])
-    print('-------------')
-    j = 0
-    for docs, pages in all_docs.items():
-        print('-----------')
-        for page in pages:
-            print(page.embedding)
-            break
-        
-        
+    print(all_docs[next(iter(all_docs.keys()))][500:502])
