@@ -32,5 +32,3 @@ if __name__ == '__main__':
         print('----------------')
         print(ids[i])
         print(raws[i])
-        
-    
