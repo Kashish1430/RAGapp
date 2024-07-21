@@ -31,7 +31,7 @@ class UploadData():
                             vectors = [{
                             "id":page.metadata,
                             "values":page.embedding,
-                            "metadata": {'Raw': page.page_content}
+                            "metadata": {'text': page.page_content}
                             }])
                 except Exception as e:
                     logging.error(f"Error uploading {doc_name}, Page {i}: {e}")
