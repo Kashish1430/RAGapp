@@ -19,7 +19,7 @@ class Inference():
         self.model = Model()
         self.template = None
         self.fetched_from_pinecone = None
-        self.pc = PineconeVectorStore(index_name='books-rag-app', embedding = OpenAIEmbeddings())
+        self.pc = PineconeVectorStore.from_existing_index(index_name='books-rag-app', embedding = OpenAIEmbeddings())
         
     def get_chain(self):
         if self.template is None:
