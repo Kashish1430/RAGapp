@@ -27,7 +27,6 @@ class Inference():
             raise ValueError('Template is not set, please make sure it is set')
         
         prompt = ChatPromptTemplate.from_template(self.template)
-        print(self.model.get_chain())
         return prompt | self.model.get_chain()
     
     def get_output(self, query: str):
@@ -37,18 +36,13 @@ class Inference():
         #print(context)
         
         ids, self.fetched_from_pinecone  = self.retriever.clean_output(query)
-        print('---------------------------------------------------------------------------------------')
-        print(self.fetched_from_pinecone)
-        self.fetched_from_pinecone = get_string(self.fetched_from_pinecone)
+        #self.fetched_from_pinecone = get_string(self.fetched_from_pinecone)
         self.template = get_prompt_template(self.fetched_from_pinecone, query)
-        print(self.template)
-        
         chain = self.get_chain()
-        print(chain)
-        return chain.invoke({'context': self.fetched_from_pinecone, 'question': query})
+        return chain.invoke({'context': self.fetched_from_pinecone, 'question': query}), ids
 
 if __name__ == '__main__':
     prediction = Inference()
-    output = prediction.get_output('What are the best practices while creating classes in python ')
-    print('---------------------------------------------------------------------------------------')
+    output, sources = prediction.get_output('How to know when to use class and when to use functions?')
     print(output)
+    print('\nSources of the output: ',sources)

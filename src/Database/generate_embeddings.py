@@ -5,12 +5,12 @@ from src.Database.document_loader import DocumentLoader
 import pickle
 import os
 
-embeddings = OpenAIEmbeddings()
-output = embeddings.embed_query('You are boring')
-output2 = embeddings.embed_query('I think kashish is very boring')
-output3 = embeddings.embed_query('My phone is almost fully charged')
-print(cosine_similarity([output], [output2])[0][0])
-print(cosine_similarity([output], [output3])[0][0])
+#embeddings = OpenAIEmbeddings()
+#output = embeddings.embed_query('You are boring')
+#output2 = embeddings.embed_query('I think kashish is very boring')
+#output3 = embeddings.embed_query('My phone is almost fully charged')
+#print(cosine_similarity([output], [output2])[0][0])
+#print(cosine_similarity([output], [output3])[0][0])
 
 class GenerateEmbeddings():
     def __init__(self):
