@@ -5,6 +5,7 @@ from src.utils import get_openai_api_key
 
 class Model():
     def __init__(self, model_type='gpt-3.5-turbo'):
+        super().__init__()
         self.model = ChatOpenAI(openai_api_key=get_openai_api_key(), model='gpt-3.5-turbo')
         self.parser = StrOutputParser()
 

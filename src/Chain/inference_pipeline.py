@@ -5,6 +5,7 @@ from src.Chain.testing_model import Model
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough, RunnableLambda
 from langchain_pinecone import PineconeVectorStore
 from langchain_openai import OpenAIEmbeddings
+from langchain.prompts import ChatPromptTemplate
 
 
 class PrintContext():
@@ -24,21 +25,27 @@ class Inference():
     def get_chain(self):
         if self.template is None:
             raise ValueError('Template is not set, please make sure it is set')
-        return ({"context": self.pc.as_retriever(),
-                 "question": RunnablePassthrough()}
-                | RunnableLambda(inspect)
-                | self.template | self.model.get_chain())
-        #setup = self.get_runnable(self.fetched_from_pinecone)
-        #return setup | self.template | self.model.get_chain()
+        
+        prompt = ChatPromptTemplate.from_template(self.template)
+        print(self.model.get_chain())
+        return prompt | self.model.get_chain()
     
     def get_output(self, query: str):
+        
+        #results = self.pc.similarity_search_with_score(query, k=2)
+        #context = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
+        #print(context)
+        
         ids, self.fetched_from_pinecone  = self.retriever.clean_output(query)
-        #self.fetched_from_pinecone = get_string(fetched_from_pinecone)
-        #self.template = get_prompt_template(self.fetched_from_pinecone, query)
-        self.template = get_prompt_template_plain()
+        print('---------------------------------------------------------------------------------------')
+        print(self.fetched_from_pinecone)
+        self.fetched_from_pinecone = get_string(self.fetched_from_pinecone)
+        self.template = get_prompt_template(self.fetched_from_pinecone, query)
         print(self.template)
+        
         chain = self.get_chain()
-        return chain.invoke(query)
+        print(chain)
+        return chain.invoke({'context': self.fetched_from_pinecone, 'question': query})
 
 if __name__ == '__main__':
     prediction = Inference()
