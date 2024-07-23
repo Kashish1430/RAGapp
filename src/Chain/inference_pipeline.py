@@ -6,7 +6,7 @@ from langchain_core.runnables import RunnableParallel, RunnablePassthrough, Runn
 from langchain_pinecone import PineconeVectorStore
 from langchain_openai import OpenAIEmbeddings
 from langchain.prompts import ChatPromptTemplate
-
+import sys
 
 class PrintContext():
     def __call__(self, context):
@@ -42,7 +42,12 @@ class Inference():
         return chain.invoke({'context': self.fetched_from_pinecone, 'question': query}), ids
 
 if __name__ == '__main__':
-    prediction = Inference()
-    output, sources = prediction.get_output('How to know when to use class and when to use functions?')
-    print(output)
-    print('\nSources of the output: ',sources)
+    if len(sys.argv)<2:
+        print('Please enter the question.')
+    else:
+        prediction = Inference()
+        input_by_user = " ".join(sys.argv[1:])
+        print('Question asked by the user: ', input_by_user)
+        output, sources = prediction.get_output(input_by_user)
+        print(output)
+        print('\nSources of the output: ',sources)
