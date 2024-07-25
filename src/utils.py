@@ -73,3 +73,6 @@ def inspect(state):
     """Print the state passed between Runnables in a langchain and pass it on"""
     print(state)
     return state
+
+def escape_braces(text: List[str]) -> List[str]:
+    return [re.sub(r'([{}])', r'\1\1', item) for item in text]
