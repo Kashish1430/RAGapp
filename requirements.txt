@@ -17,4 +17,5 @@ pinecone-client
 scikit-learn
 ruff
 python-dotenv
+fastapi
 -e .
