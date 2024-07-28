@@ -19,4 +19,5 @@ ruff
 python-dotenv
 fastapi
 mangum
+streamlit
 -e .
