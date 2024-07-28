@@ -31,7 +31,7 @@ def chat(request: SubmitQueryRequest)->dict:
         prediction = Inference()
         output, ids = prediction.get_output(request.query)
         return {'response': str(output),
-                'Sources': ids}
+                'sources': ids}
     except Exception as e:
         print(f'Error Occured {e}')
         raise HTTPException(status_code=500, detail=str(e))
