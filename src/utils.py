@@ -10,10 +10,10 @@ import re
 load_dotenv()
 
 def get_openai_api_key():
-    return os.getenv("OPENAI_API_KEY")
+    return str(os.getenv("OPENAI_API_KEY"))
 
 def get_pinecone_api_key():
-    return os.getenv("PINECONE_API_KEY")
+    return str(os.getenv("PINECONE_API_KEY"))
 
 def get_files_path(folder):
     return glob.glob(f'{folder}/*.pdf')

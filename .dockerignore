@@ -1,0 +1,23 @@
+*.pyc
+__pycache__
+.git
+.gitignore
+.venv/
+env/
+
+# Exclude environment variables
+.env
+
+# Exclude Python virtual environment
+venv/
+
+# Exclude setuptools metadata
+RAG_Application.egg-info/
+
+# Exclude unnecessary text files
+New Text Document.txt
+New Text Document (2).txt
+
+# Optional: Exclude other temporary files
+*.log
+*.tmp

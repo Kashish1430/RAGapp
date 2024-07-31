@@ -42,6 +42,7 @@ class Inference():
         return chain.invoke({'context': self.fetched_from_pinecone, 'question': query}), ids
 
 if __name__ == '__main__':
+    import os
     if len(sys.argv)<2:
         print('Please enter the question.')
     else:
@@ -51,3 +52,6 @@ if __name__ == '__main__':
         output, sources = prediction.get_output(input_by_user)
         print(output)
         print('\nSources of the output: ',sources)
+        
+        print("OPENAI_API_KEY:", os.environ.get("OPENAI_API_KEY", "Not set")[:5] + "..." if os.environ.get("OPENAI_API_KEY") else "Not set")
+        print("PINECONE_API_KEY:", os.environ.get("PINECONE_API_KEY", "Not set")[:5] + "..." if os.environ.get("PINECONE_API_KEY") else "Not set")

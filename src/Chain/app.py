@@ -6,6 +6,9 @@ from src.Chain.inference_pipeline import Inference
 import uvicorn
 import os
 
+print("OPENAI_API_KEY:", os.environ.get("OPENAI_API_KEY", "Not set")[:5] + "..." if os.environ.get("OPENAI_API_KEY") else "Not set")
+print("PINECONE_API_KEY:", os.environ.get("PINECONE_API_KEY", "Not set")[:5] + "..." if os.environ.get("PINECONE_API_KEY") else "Not set")
+
 curr_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.abspath(os.path.join(curr_dir, '..', '..'))
 
@@ -36,7 +39,8 @@ def chat(request: SubmitQueryRequest)->dict:
         print(f'Error Occured {e}')
         raise HTTPException(status_code=500, detail=str(e))
 
+#app = uvicorn.run(app, host='0.0.0.0', port=8000)
 if __name__ == '__main__':
     port = 8000
-    print('Running the FastAPI server on port :', port)
-    uvicorn.run("app:app", host='127.0.0.1', port = port, reload=True)
+    uvicorn.run("app:app", host='0.0.0.0', port = port, reload=True)
+    
